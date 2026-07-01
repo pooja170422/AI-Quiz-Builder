@@ -42,6 +42,7 @@ The application follows a client-server architecture with AI integration.
                   │
                   ▼
            Quiz History
+           
 Architecture Workflow
 The user enters a quiz topic through the React frontend.
 The request is sent to the Express backend.
