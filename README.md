@@ -1,2 +1,101 @@
-# AI-Quiz-Builder
-AI-powered quiz generator using  MERN stack, Groq LLM, Wikipedia API, RAG
+AI-Powered Knowledge Quiz Builder
+Project Overview
+
+AI-Powered Knowledge Quiz Builder is a full-stack web application that automatically generates multiple-choice quizzes for any user-provided topic.
+The application allows users to generate quizzes, answer questions, view their score with explanations, and review previously attempted quizzes.
+
+1)System Architecture
+
+The application follows a client-server architecture with AI integration.
+
+                User
+                  │
+                  ▼
+          React Frontend
+                  │
+          (Topic Input)
+                  │
+                  ▼
+          Express Backend
+                  │
+      ┌───────────┴────────────┐
+      │                        │
+      ▼                        ▼
+ Wikipedia REST API       Groq Llama 3 API
+      │                        ▲
+      └── Context Injection ───┘
+                  │
+                  ▼
+          AI Generated Quiz
+                  │
+                  ▼
+           React Quiz UI
+                  │
+                  ▼
+         Quiz Submission
+                  │
+                  ▼
+         Score Calculation
+                  │
+                  ▼
+          MongoDB Atlas
+                  │
+                  ▼
+           Quiz History
+Architecture Workflow
+The user enters a quiz topic through the React frontend.
+The request is sent to the Express backend.
+The backend retrieves a summary of the topic from the Wikipedia API.
+The retrieved summary is injected into the prompt sent to the Groq Llama 3 model (lightweight RAG approach).
+Groq generates five multiple-choice questions in structured JSON format.
+The quiz is displayed to the user.
+After submission, the backend evaluates the answers, calculates the score, stores the result in MongoDB Atlas, and returns detailed feedback with explanations.
+
+
+2)Technical Decisions
+Frontend
+React.js was chosen for building a responsive and component-based user interface.
+React Router is used for navigation between Home, Quiz, Result, and History pages.
+Axios is used for communication with backend APIs.
+Backend
+Node.js and Express.js provide a lightweight REST API for handling quiz generation, submission, and history retrieval.
+Business logic is separated into controllers, services, models, and routes to keep the code modular and maintainable.
+Database
+MongoDB Atlas is used to store quiz attempts, scores, and history.
+Mongoose is used for schema definition and database interaction.
+AI Integration
+The backend communicates with the Groq Llama 3 API to generate quiz questions.
+Prompts are designed to request structured JSON responses, making it easy for the frontend to render quizzes.
+Retrieval
+The Wikipedia REST API is used to retrieve contextual information related to the user-provided topic.
+The retrieved summary is included in the prompt before sending it to the LLM.
+This lightweight Retrieval-Augmented Generation (RAG) approach improves the factual accuracy of generated questions.
+
+
+3)AI Tool Selection and Reasoning
+AI Tool Used=Groq API (Llama 3)
+
+Why Groq?
+
+The following reasons influenced the selection of Groq:
+
+Fast inference speed, resulting in quick quiz generation.
+Free developer tier suitable for MVP development.
+Supports structured JSON output, simplifying backend parsing.
+Easy REST API integration with Express.js.
+Produces high-quality educational questions with minimal prompt engineering.
+
+
+4)Retrieval Tool=Wikipedia REST API
+
+Why Wikipedia?
+
+Wikipedia was selected because it provides reliable, topic-specific information that can be retrieved in real time.
+
+The retrieved summary is injected into the LLM prompt before quiz generation, which:
+
+Improves factual accuracy
+Reduces AI hallucinations
+Produces more relevant quiz questions
+
+This implementation follows a lightweight Retrieval-Augmented Generation (RAG) approach without requiring embeddings or a vector database.
