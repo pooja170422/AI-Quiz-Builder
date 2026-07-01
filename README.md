@@ -7,50 +7,15 @@ The application allows users to generate quizzes, answer questions, view their s
 1)System Architecture
 
 The application follows a client-server architecture with AI integration.
-
-                User
-                  │
-                  ▼
-          React Frontend
-                  │
-          (Topic Input)
-                  │
-                  ▼
-          Express Backend
-                  │
-      ┌───────────┴────────────┐
-      │                        │
-      ▼                        ▼
- Wikipedia REST API       Groq Llama 3 API
-      │                        ▲
-      └── Context Injection ───┘
-                  │
-                  ▼
-          AI Generated Quiz
-                  │
-                  ▼
-           React Quiz UI
-                  │
-                  ▼
-         Quiz Submission
-                  │
-                  ▼
-         Score Calculation
-                  │
-                  ▼
-          MongoDB Atlas
-                  │
-                  ▼
-           Quiz History
            
 Architecture Workflow
-The user enters a quiz topic through the React frontend.
-The request is sent to the Express backend.
-The backend retrieves a summary of the topic from the Wikipedia API.
-The retrieved summary is injected into the prompt sent to the Groq Llama 3 model (lightweight RAG approach).
-Groq generates five multiple-choice questions in structured JSON format.
-The quiz is displayed to the user.
-After submission, the backend evaluates the answers, calculates the score, stores the result in MongoDB Atlas, and returns detailed feedback with explanations.
+1)The user enters a quiz topic through the React frontend.
+2)The request is sent to the Express backend.
+3)The backend retrieves a summary of the topic from the Wikipedia API.
+4)The retrieved summary is injected into the prompt sent to the Groq Llama 3 model (lightweight RAG approach).
+5)Groq generates five multiple-choice questions in structured JSON format.
+6)The quiz is displayed to the user.
+7)After submission, the backend evaluates the answers, calculates the score, stores the result in MongoDB Atlas, and returns detailed feedback with explanations.
 
 
 2)Technical Decisions
